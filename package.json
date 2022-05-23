@@ -1,0 +1,21 @@
+{
+  "name": "base-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/node": "^17.0.35",
+    "next": "^12.1.7-canary.11",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "typescript": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.9"
+  }
+}
