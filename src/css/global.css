@@ -1,0 +1,15 @@
+* {
+  overflow: hidden !important;
+  font-family: Poppins, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.container {
+  padding-top: 37px;
+  max-width: 59.25rem;
+  margin: 0 auto;
+  max-height: 100vh;
+}
