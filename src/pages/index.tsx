@@ -1,14 +1,23 @@
 import React from "react";
+import TopBar from "components/layout/TopBar";
+import { useRouter } from 'next/router';
 
 function HomePage(): any {
+  const router = useRouter()
+  
+  const onClickExplore = () => {
+    router.push('/explore')
+  }
   return (
     <div className="home">
       <div className="home--bg-1"></div>
       <div className="home--bg-2"></div>
       <div className="home--bg-3"></div>
-      <div className="flex justify-between">
-        <div className="home--logo">Logo</div>
-        <div className="home--get-started">Get started</div>
+      <TopBar content='Get started'/>
+      <div className="home--title">Home to the world's best web3 builders.</div>
+      <div className="home--content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</div>
+      <div className="home--explore-course" onClick={onClickExplore}>
+        <div className="home--explore-course__text">Explore course</div>
       </div>
     </div>
   )

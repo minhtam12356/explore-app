@@ -1,3 +1,8 @@
+.home {
+  overflow-y: hidden !important;
+  color: var(--dark-blue);
+}
+
 .home--bg-1 {
   position: absolute;
   width: 692px;
@@ -49,19 +54,46 @@
   border-radius: 1000px;
 }
 
-.home--logo {
-    font-size: 24px;
-    color: var(--dark-blue);
-    font-weight: bold;
+.home--title {
+  position: absolute;
+  height: 168px;
+  left: 15.49%;
+  right: 16.46%;
+  top: calc(50% - 168px / 2 - 84px);
+  font-weight: bold;
+  font-size: 56px;
+  line-height: 84px;
+  text-align: center;
 }
 
-.home--get-started {
-  border: 1px solid var(--dark-blue);
-  color: var(--dark-blue);
-  width: 8.125rem;
-  height: 2.625rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.home--content {
+  position: absolute;
+  height: 48px;
+  left: 24.31%;
+  right: 27.15%;
+  top: calc(50% - 48px / 2 + 55px);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: rgba(39, 47, 122, 0.7);
+}
+
+.home--explore-course { 
   cursor: pointer;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 60px;
+  background: #4bf2cc;
+}
+
+.home--explore-course__text {
+  font-weight: 600;
 }

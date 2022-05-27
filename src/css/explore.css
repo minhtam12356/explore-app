@@ -1,0 +1,13 @@
+.explore--title {
+  margin-top: 3rem;
+  margin-bottom: 38px;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 38px;
+  color: var(--dark);
+}
+
+.explore--item {
+  width: 270px;
+  margin-bottom: 2rem;
+}
