@@ -5,3 +5,10 @@ export interface IProduct {
   description: string;
   bookmark: boolean;
 }
+
+export interface IUser {
+  id: string;
+  username: string;
+  password: string;
+  token: string;
+}

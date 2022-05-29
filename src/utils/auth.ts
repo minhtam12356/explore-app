@@ -1,4 +1,5 @@
 import Buffer from "buffer";
+import Cookies from "js-cookie";
 import { ITokenLocal, TAuthHeader } from "types";
 import { APP_TOKEN_NAME } from "./constants";
 
@@ -39,7 +40,9 @@ export const removeSessionItem = (name: string) => {
 };
 
 export const getStorage = (name: string) => {
-  return getLocalItem(name) || getSessionItem(name);
+  if (isClient) {
+    return getLocalItem(name) || getSessionItem(name);
+  }
 };
 
 export const removeStorage = (name: string) => {
@@ -75,3 +78,5 @@ export const getAuthHeader = (token: string, type: TAuthHeader = 'Bearer'): Reco
 export const contentType = (type: string): Record<"Content-Type", string> => {
   return { "Content-Type": type };
 };
+
+export const isClient = typeof window !== 'undefined';

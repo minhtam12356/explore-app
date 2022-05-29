@@ -2,7 +2,7 @@ import React from 'react'
 
 function FormRegister() {
     return (
-        <form className="w-full max-w-sm">
+        <div className="w-full max-w-sm">
             <div className="md:flex md:items-center mb-6">
                 <div className="md:w-1/3">
                     <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
@@ -31,7 +31,7 @@ function FormRegister() {
                     </button>
                 </div>
             </div>
-        </form>
+        </div>
     )
 }
 
