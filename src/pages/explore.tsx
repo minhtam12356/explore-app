@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TopBar from "components/layout/TopBar";
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { API, apiPut } from 'utils';
+import { API, apiPut, APP_TOKEN_NAME, decodeToken, isLogin } from 'utils';
 import Card from 'components/layout/Card';
 import { IProduct } from 'types/api';
 
 function Explore({ products }: InferGetStaticPropsType<typeof getStaticProps>) {
     const [productState, setProductState] = useState<IProduct[]>(products);
+    const [title, setTitle] = useState<string>('Login');
+    const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
+    const currentUserName = decodeToken().username;
+
     const onChangeBookMark = async (id: string) => {
         const product = productState.find((product: IProduct) => product.id === id);
         const productIndex = productState.findIndex((product: IProduct) => product.id === id);
@@ -16,13 +20,17 @@ function Explore({ products }: InferGetStaticPropsType<typeof getStaticProps>) {
             setProductState([...productState.slice(0, productIndex), productEdited, ...productState.slice(productIndex + 1, productState.length)])
         }
     }
+    useEffect(() => {
+        setTitle(isLogin ? currentUserName : 'Login');
+        setIsLoginSuccess(isLogin)
+    }, [])
     return <>
-        <TopBar loginSuccess content={'username'}  />
+        <TopBar content={title} loginSuccess={isLoginSuccess} />
         <div className="explore--title">Explore what others are building</div>
         <div className="flex flex-wrap justify-between">
             {
                 productState.map((product: IProduct, index: number) =>
-                    <Card key={index} product={product} onChangeBookMark={onChangeBookMark} loginSuccess/>
+                    <Card key={index} product={product} onChangeBookMark={onChangeBookMark} loginSuccess={isLoginSuccess} />
                 )
             }
         </div>

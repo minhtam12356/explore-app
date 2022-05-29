@@ -1,7 +1,13 @@
 import Buffer from "buffer";
-import Cookies from "js-cookie";
 import { ITokenLocal, TAuthHeader } from "types";
 import { APP_TOKEN_NAME } from "./constants";
+
+export const generateUUID = (): string => {
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4()
+}
+const s4 = (): string => {
+  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+}
 
 export const getLocalItem = (name: string) => {
   let data = localStorage.getItem(name);
@@ -51,13 +57,14 @@ export const removeStorage = (name: string) => {
 };
 
 export const decodeToken = (): ITokenLocal => {
-  const UT: ITokenLocal = { token: "", id: "" };
+  const UT: ITokenLocal = { token: "", id: "", username: "" };
   let localToken = getStorage(APP_TOKEN_NAME);
   if(!localToken)return UT;
 
   const parse = Buffer.Buffer.from(localToken, "base64").toString().split(".");
-  UT.id = parse.pop() ?? "";
-  UT.token = parse.join(".");
+  UT.id = parse[1];
+  UT.token = parse[0];
+  UT.username = parse[2];
 
   return UT;
 };
@@ -68,7 +75,7 @@ export const stringToBase64 = (str: string): string => {
 
 
 export const encodeToken = (UT: ITokenLocal): string => {
-  return stringToBase64([UT.token, UT.id].join("."));
+  return stringToBase64([UT.token, UT.id, UT.username].join("."));
 };
 
 export const getAuthHeader = (token: string, type: TAuthHeader = 'Bearer'): Record<'Authorization', string> => {
@@ -80,3 +87,4 @@ export const contentType = (type: string): Record<"Content-Type", string> => {
 };
 
 export const isClient = typeof window !== 'undefined';
+export const isLogin = !!getStorage(APP_TOKEN_NAME);

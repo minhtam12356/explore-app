@@ -1,6 +1,7 @@
 export interface ITokenLocal {
   token: string;
   id: string | number;
+  username: string;
 }
 
 export interface IApiResponse<T> {

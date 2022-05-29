@@ -1,24 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router';
 import FormLogin from './FormLogin';
 import Modal from 'components/base/Modal';
 import { APP_TOKEN_NAME, removeStorage } from 'utils';
+import FormRegister from './FormRegister';
 
 interface TopBarProps {
     loginSuccess?: boolean;
+    isGetStarted?: boolean;
     content: string;
 }
 
-function TopBar({ loginSuccess = false, content }: TopBarProps) {
+function TopBar({ loginSuccess = false, isGetStarted = false, content }: TopBarProps) {
+    const [currentTab, setCurrentTab] = useState<number>(0);
     const router = useRouter();
 
     const onClickHome = () => {
-        router.push('/')
+        router.push('/');
     }
 
     const onLogout = () => {
         removeStorage(APP_TOKEN_NAME)
-        router.push('/explore')
+        router.reload();
+    }
+
+    const onChangeTab = (currentTab: number) => {
+        setCurrentTab(currentTab)
     }
 
     return (
@@ -31,9 +38,16 @@ function TopBar({ loginSuccess = false, content }: TopBarProps) {
                 </a>
             </div>
             )}
-            {!loginSuccess && <Modal title="Login" childButton={<div className='topbar--get-started'>{content}</div>}>
-                <FormLogin />
-            </Modal>}
+            {!loginSuccess && !isGetStarted &&
+                <Modal
+                    id={currentTab === 0 ? "login" : "register"}
+                    title={currentTab === 0 ? "Login" : "Register"}
+                    childButton={<div className='topbar--get-started'>{content}</div>}
+                >
+                    {currentTab === 0 && <FormLogin onChangeTab={onChangeTab} />}
+                    {currentTab === 1 && <FormRegister onChangeTab={onChangeTab} />}
+                </Modal>}
+            {!loginSuccess && isGetStarted && <div className='topbar--get-started'>{content}</div>}
         </div>
     )
 }

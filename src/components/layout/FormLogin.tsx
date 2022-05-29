@@ -3,10 +3,12 @@ import { apiGet, APP_TOKEN_NAME } from 'utils';
 import { IUser } from 'types/api';
 import { encodeToken, setLocalItem, setSessionItem } from 'utils/auth';
 import { useRouter } from 'next/router';
-import FormRegister from './FormRegister';
-import Modal from '../base/Modal';
 
-function FormLogin() {
+interface FormLoginProps {
+    onChangeTab?: (currentTab: number) => void;
+}
+
+function FormLogin({ onChangeTab }: FormLoginProps) {
     const router = useRouter();
 
     const onLogin = async (e: any) => {
@@ -19,10 +21,11 @@ function FormLogin() {
             const users = response.data;
             const user = users.find(user => user.username === userName && user.password === passWord);
             if (user) {
+                const { id, token, username } = user
                 alert('Đăng nhập thành công');
-                router.push('/explore/login-thanh-cong');
-                rememberPw && setLocalItem(APP_TOKEN_NAME, encodeToken({ id: user.id, token: user.token }));
-                !rememberPw && setSessionItem(APP_TOKEN_NAME, encodeToken({ id: user.id, token: user.token }));
+                router.reload();
+                rememberPw && setLocalItem(APP_TOKEN_NAME, encodeToken({ id, token, username }));
+                !rememberPw && setSessionItem(APP_TOKEN_NAME, encodeToken({ id, token, username }));
             }
             else {
                 alert('Đăng nhập thất bại');
@@ -36,7 +39,7 @@ function FormLogin() {
             <div className="md:flex md:items-center mb-6">
                 <div className="md:w-1/4">
                     <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
-                        User Name
+                        Username
                     </label>
                 </div>
                 <div className="md:w-2/3">
@@ -66,12 +69,9 @@ function FormLogin() {
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Login
                 </button>
-                <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-4" href="#">
+                <a className="cursor-pointer inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-4" onClick={() => onChangeTab && onChangeTab(1)}>
                     Don't account? Register here
                 </a>
-                {/* <Modal title="Register" childButton={<div className='topbar--get-started'>Register</div>}>
-                    <FormRegister />
-                </Modal> */}
             </div>
         </form>
     )

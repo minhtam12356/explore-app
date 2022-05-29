@@ -1,24 +1,24 @@
 import React from 'react'
 
 interface ModalProps {
+    id: string;
     childButton?: React.ReactNode,
     children: React.ReactNode,
     title: string,
 }
 
-function Modal({ title, children, childButton }: ModalProps) {
+function Modal({ id, title, children, childButton }: ModalProps) {
     return (
         <>
             <button
-                className=""
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target={`#${id}-modal`}
             >
                 {childButton}
             </button>
 
             <div className="modal fade fixed top-0 left-0 hidden w-full h-full m-auto outline-none overflow-x-hidden overflow-y-auto"
-                id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+                id={`${id}-modal`} tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog relative w-auto pointer-events-none">
                     <div
                         className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
