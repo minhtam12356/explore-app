@@ -1,1 +1,1 @@
-# Login page with Nextjs, Tailwind and Typescript
+# Explore App with Nextjs, Tailwind and Typescript
