@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import TopBar from "components/layout/TopBar";
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { API, apiPut, APP_TOKEN_NAME, decodeToken, isLogin } from 'utils';
 import Card from 'components/layout/Card';
 import { IProduct } from 'types/api';
 
-function Explore({ products }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+function Explore({ products }: InferGetStaticPropsType<typeof getStaticProps>) {
     const [productState, setProductState] = useState<IProduct[]>(products);
     const [title, setTitle] = useState<string>('Login');
     const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
@@ -37,7 +37,7 @@ function Explore({ products }: InferGetServerSidePropsType<typeof getServerSideP
     </>
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
     const response = await API.get('/products')
 
     if (!response) {
