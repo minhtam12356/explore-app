@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import https from "https";
 import { contentType, decodeToken, getAuthHeader } from "utils/auth";
 import { IHeaderRequest, IDataRequest, IResponse, IApiResponse } from "types";
 import { API_BASE_URL } from "./constants";
@@ -7,6 +8,9 @@ import { EContentType, EMethod } from "types/enums";
 export const API = axios.create({
   baseURL: API_BASE_URL,
   headers: { Accept: EContentType.JSON, ...contentType(EContentType.JSON) },
+  httpsAgent: new https.Agent({  
+    rejectUnauthorized: false
+  }),
 });
 
 async function execApi<T>(
